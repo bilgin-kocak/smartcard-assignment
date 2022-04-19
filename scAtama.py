@@ -32,7 +32,7 @@ def scAtama(year, month):
     for i in hats:
         for day in range(30):
             try:
-                sc30 = pd.read_csv(path+"RawSCData/" + year + "/" + month+"/sc"+str(day+1)+".csv")
+                sc30 = pd.read_csv(path+"RawSCData/" + year + "/" + month+"/sc"+str(day+1)+".csv", encoding="ISO-8859-1")
             except FileNotFoundError:
                 print("sc"+str(day+1)+".csv file does not exist!")
                 continue
@@ -127,7 +127,7 @@ def scAtama(year, month):
             stopIDs[(pd.to_numeric(road["D_SIRA_1"])).min() - 1] = stopIDs[(pd.to_numeric(road["D_SIRA_1"])).min()]
             try:
                 pathForSc = path+"SmartCardResults_"+year+"/"+month+"/ULID"+lid+slid+"/ULID"+lid+slid+"_"+str(day+1)+"oct.csv"
-                scResult = pd.read_csv(pathForSc)
+                scResult = pd.read_csv(pathForSc, encoding="ISO-8859-1")
                 scResult.drop("ShiftID",axis = 1, inplace = True)
                 scResult.sort_values(by=["TIMESTAMP"], inplace=True)
                 #scResult["Date"]

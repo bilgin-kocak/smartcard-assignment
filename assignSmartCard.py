@@ -6,9 +6,11 @@ Created on Mon Apr 11 12:17:50 2022
 """
 
 from scAtama import scAtama
+from tramAtama import tramAtama
 
 
-year = "2020"
+year = "2021"
 month = "04"
 
-scAtama(year,month)
+tramAtama(year, month)
+#scAtama(year,month)

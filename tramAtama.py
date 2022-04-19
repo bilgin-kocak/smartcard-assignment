@@ -72,7 +72,7 @@ def tramAtama(year, month):
     #hatlar = [450]
     for day in range(30):
         try:
-            sc30 = pd.read_csv(path+"RawSCData/"+year+"/"+month+"/sc"+str(day+1)+".csv")
+            sc30 = pd.read_csv(path+"RawSCData/"+year+"/"+month+"/sc"+str(day+1)+".csv", encoding="ISO-8859-1")
         except FileNotFoundError:
             print("sc"+str(day+1)+".csv file does not exist!")
             continue
@@ -83,6 +83,7 @@ def tramAtama(year, month):
             sc30_selected = sc30[(sc30["HAT_NO"]==int(lid))&(sc30["ALT_HAT_NO"]==int(slid))]
             sc30_selected_gdf = gpd.GeoDataFrame(sc30_selected,crs={'init':'epsg:4326'},geometry=[Point(x, y) for x,y in zip(sc30_selected.BOYLAM, sc30_selected.ENLEM)] )
             sc30_selected_gdf = sc30_selected_gdf.to_crs(epsg=3857)
+            sc30_selected_gdf["ARAC_NO"] = sc30_selected_gdf["ARAC_NO"].astype(int)
             sc30_selected_gdf = sc30_selected_gdf[sc30_selected_gdf["ARAC_NO"]<100]
             sc30_selected_gdf["Date"] = ""
             sc30_selected_gdf["Time"] = ""
@@ -133,7 +134,7 @@ def tramAtama(year, month):
     ord2ID_nonstationary = dict(zip(stop_info_nonstationary.DURAK_SIRASI, stop_info_nonstationary.DURAK_NO))
     for day in range(30):
         try:
-            sc30 = pd.read_csv(path+"RawSCData/"+year+"/"+month+"/sc"+str(day+1)+".csv")
+            sc30 = pd.read_csv(path+"RawSCData/"+year+"/"+month+"/sc"+str(day+1)+".csv", encoding="ISO-8859-1")
         except FileNotFoundError:
             print("sc"+str(day+1)+".csv file does not exist!")
             continue
@@ -144,6 +145,7 @@ def tramAtama(year, month):
             sc30_selected =  sc30[(sc30["HAT_NO"]==10)&(sc30["ALT_HAT_NO"]==0)|(sc30["HAT_NO"]==10)&(sc30["ALT_HAT_NO"]==2)]
             sc30_selected_gdf = gpd.GeoDataFrame(sc30_selected,crs={'init':'epsg:4326'},geometry=[Point(x, y) for x,y in zip(sc30_selected.BOYLAM, sc30_selected.ENLEM)] )
             sc30_selected_gdf = sc30_selected_gdf.to_crs(epsg=3857)
+            sc30_selected_gdf["ARAC_NO"] = sc30_selected_gdf["ARAC_NO"].astype(int)
             sc30_selected_gdf = sc30_selected_gdf[sc30_selected_gdf["ARAC_NO"]>=100]
             sc30_selected_gdf["Date"] = ""
             sc30_selected_gdf["Time"] = ""
@@ -214,8 +216,8 @@ def tramAtama(year, month):
     lid = "10"
     slid = "0"
     for file in files1:
-        df1 = pd.read_csv(directory + "ULID100/"+ file)
-        df2 = pd.read_csv(directory + "1ULID100/"+ file)
+        df1 = pd.read_csv(directory + "ULID100/"+ file, encoding="ISO-8859-1")
+        df2 = pd.read_csv(directory + "1ULID100/"+ file, encoding="ISO-8859-1")
         col_list = list(df1.columns)
         if len(df2) > 0:
             df2 = df2[col_list]
