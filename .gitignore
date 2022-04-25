@@ -1,0 +1,8 @@
+__pycache__/
+RawSCData/
+SmartCardResults_2021/
+SmartCardResults_2021_post/
+SmartCardResults_tram/
+
+errors.txt
+logForPostProcessing_tumHatlar1.txt
